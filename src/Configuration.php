@@ -11,12 +11,14 @@ class Configuration {
     private $path = '../configuration/';
     public function set_path($path) {$this->path = $path;}
     private $file = null;
-    public function set_file($file) {$ths->file = $this->path.$file;}
+    public function set_file($file) {$this->file = $this->path.$file;}
     private $registry = null;
 
     public function read() {
-        $configuration = file_get_contents($this->file);
-        $site_structure = Spyc::YAMLLoadString($site_structure);
+        if (file_exists($this->file)) {
+            $configuration = file_get_contents($this->file);
+            $this->registry = \Spyc::YAMLLoadString($configuration);
+        }
     }
 
     public function get($key) {
